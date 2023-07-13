@@ -7,12 +7,16 @@ import { AppRoutingModule } from './app-routing.module';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
 
 import { AppComponent } from './app.component';
+
+//Components
 import { HomeComponent } from './components/home/home.component';
+import { QrScannerComponent } from './components/qr-scanner/qr-scanner.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent,
+    QrScannerComponent
   ],
   imports: [
     BrowserModule,
