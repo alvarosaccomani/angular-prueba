@@ -1,0 +1,56 @@
+.camera-list {
+  width: calc(100% - 10px);
+  margin: 5px;
+  padding: 5px;
+  font-size: 14px;
+}
+
+.back-button {
+  position: fixed;
+  bottom: 90px;
+  right: 20px;
+  z-index: 100;
+  height: 75px;
+  width: 75px;
+  border-radius: 100%;
+  background-color: rgb(61, 38, 123);
+  box-shadow: 2px 2px 10px 1px rgba(0,0,0,0.58);
+  -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+  -webkit-transform: scale(0.92);
+            transform: scale(0.92);
+  i {
+    color: #fff;
+    font-size: 28px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+}
+
+.torch-button {
+  position: fixed;
+  bottom: 10px;
+  right: 20px;
+  z-index: 100;
+  height: 75px;
+  width: 75px;
+  border-radius: 100%;
+  background-color: rgb(61, 38, 123);
+  box-shadow: 2px 2px 10px 1px rgba(0,0,0,0.58);
+  -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+  -webkit-transform: scale(0.92);
+            transform: scale(0.92);
+  i {
+    color: #fff;
+    font-size: 28px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+}
+
+::ng-deep video {
+  max-height: calc(100vh - 45px);
+  width: 100vw;
+  object-fit: contain;
+}

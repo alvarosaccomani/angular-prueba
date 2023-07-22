@@ -1,1 +1,52 @@
-<p>qr-scanner works!</p>
+<select
+  #selectListCamera
+  class="camera-list"
+  *ngIf = "hasDevices"
+  (change)="onDeviceSelectChange(selectListCamera.value)"
+  >
+  <option *ngFor="let camera of cameras" value={{camera.label}}>
+      {{ camera.label }}
+  </option>
+</select>
+
+<button
+  class="back-button"
+  (click) = "back()"
+  >
+  <i
+    class="fa-sharp fa-solid fa-arrow-left"
+    >
+  </i>
+</button>
+
+<button
+  class="torch-button"
+  *ngIf = "torchAvailable$ | async"
+  (click) = "toggleTorch()"
+  >
+  <i
+    *ngIf="!torchEnabled"
+    class="fa-regular fa-lightbulb"
+    >
+  </i>
+  <i
+    *ngIf="torchEnabled"
+    class="fa-solid fa-lightbulb"
+    >
+  </i>
+</button>
+
+<zxing-scanner
+  class="camera-zone"
+  [torch] = "torchEnabled"
+  [enable] = "scannerEnabled"
+  [(device)] = "myDevice"
+  [formats] = "allowedFormats"
+  [previewFitMode]="'contain'"
+  (permissionResponse)="onHasPermission($event)"
+  (camerasFound) = "onCamerasFound($event)"
+  (scanSuccess) = "onCodeResult($event)"
+  (torchCompatible) = "onTorchCompatible($event)"
+  >
+</zxing-scanner>
+
