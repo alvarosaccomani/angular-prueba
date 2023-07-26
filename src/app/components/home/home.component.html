@@ -1,1 +1,14 @@
-<p>home works!</p>
+<h1
+  class="title"
+  >
+    Menu de
+    <small>Pruebas Angular</small>
+</h1>
+<div
+  class="item-menu"
+  *ngFor="let item of menu"
+  >
+  <a routerLink="/{{item.path}}">
+    {{item.caption}}
+  </a>
+</div>
