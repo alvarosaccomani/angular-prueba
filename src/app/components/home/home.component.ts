@@ -14,6 +14,10 @@ export class HomeComponent implements OnInit {
       {
         caption: "Scanner QR",
         path: "qr-scanner"
+      },
+      {
+        caption: "Lector de Excel",
+        path: "xlsx-reader"
       }
     ]
   }

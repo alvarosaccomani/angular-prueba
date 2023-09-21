@@ -11,12 +11,14 @@ import { AppComponent } from './app.component';
 //Components
 import { HomeComponent } from './components/home/home.component';
 import { QrScannerComponent } from './components/qr-scanner/qr-scanner.component';
+import { XlsxReaderComponent } from './components/xlsx-reader/xlsx-reader.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    QrScannerComponent
+    QrScannerComponent,
+    XlsxReaderComponent
   ],
   imports: [
     BrowserModule,
