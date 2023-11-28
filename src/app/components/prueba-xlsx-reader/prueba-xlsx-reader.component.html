@@ -1,0 +1,234 @@
+<div
+  *ngIf="step === 1"
+  class="comprobantes-afip"
+  >
+  <h3
+    class="comprobantes-afip-title"
+    >
+    Comprobantes AFIP
+  </h3>
+  <div
+    class="comprobantes-afip-file-selection"
+    >
+    <app-xlsx-reader [config] = "configCtevtaAFIP"></app-xlsx-reader>
+  </div>
+  <div
+    *ngIf="comprobantesAFIP.length"
+    class="comprobantes-afip-table-wrapper"
+    >
+    <table
+      id="comprobantes-afip"
+      >
+      <thead>
+        <!--style="width: {{col.width}};"-->
+        <th
+          *ngFor="let col of configCtevtaAFIP.columns"
+          [ngStyle]="col.style.header"
+          >
+          {{col.caption}}
+        </th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let comp of comprobantesAFIP">
+          <td
+            *ngFor="let col of configCtevtaAFIP.columns"
+            [ngStyle]="col.style.data"
+            >
+            {{(comp[col.name] && col.format) ? convertirAFormato(comp[col.name], col.format) : comp[col.name]}}
+          </td>
+          <!--<td>
+            <ul>
+              <li *ngFor="let item of group.items">{{item}}</li>
+            </ul>
+          </td>-->
+        </tr>
+      </tbody>
+      <tfoot>
+
+      </tfoot>
+    </table>
+  </div>
+  <div
+    *ngIf="comprobantesAFIP.length"
+    class="comprobantes-afip-cmds-toolbar"
+    >
+    <button
+      class="comprobantes-afip-cmds-toolbar-button-next"
+      (click)="next()"
+      >
+      Siguiente
+    </button>
+  </div>
+</div>
+
+<div
+  *ngIf="step === 2"
+  class="comprobantes-prologue"
+  >
+  <h3
+    class="comprobantes-prologue-title"
+    >
+    Comprobantes Prologue
+  </h3>
+  <div
+    class="comprobantes-prologue-file-selection"
+    >
+    <app-xlsx-reader [config] = "configCtevtaPrologue"></app-xlsx-reader>
+  </div>
+  <div
+    class="comprobantes-prologue-table-wrapper"
+    >
+    <div
+      *ngIf="comprobantesPrologueFilter.length"
+      class="comprobantes-prologue-table-wrapper-toolbar"
+      >
+      <select
+        id="tc"
+        name="tc"
+        class="comprobantes-prologue-table-wrapper-toolbar-select-tc"
+        [(ngModel)] = "tipoComprobante"
+        >
+        <option
+          *ngFor="let tcmp of tiposCompPrologue"
+          [value]="tcmp.name"
+          >
+          {{tcmp.name}}
+        </option>
+      </select>
+      <button
+        class="comprobantes-prologue-table-wrapper-toolbar-button-filter"
+        (click) = "filtrarComprobantes()"
+        >
+        Filtrar
+      </button>
+      <div
+        class="comprobantes-prologue-table-wrapper-toolbar-total-tc"
+        >
+        Total Comprobantes: {{comprobantesPrologueFilter.length}}
+      </div>
+    </div>
+    <div
+      *ngIf="comprobantesPrologueFilter.length"
+      style="padding: 10px;"
+      >
+      <table
+        id="comprobantes-prologue"
+        >
+        <thead>
+          <th
+            *ngFor="let col of configCtevtaPrologue.columns"
+            style="width: {{col.width}};"
+            >
+            {{col.caption}}
+          </th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let comp of comprobantesPrologueFilter">
+            <td *ngFor="let col of configCtevtaPrologue.columns">
+              {{comp[col.name]}}
+            </td>
+            <!--<td>
+              <ul>
+                <li *ngFor="let item of group.items">{{item}}</li>
+              </ul>
+            </td>-->
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div
+    class="comprobantes-prologue-cmds-toolbar"
+    >
+    <button
+        class="comprobantes-prologue-cmds-toolbar-button-back"
+        (click)="back()"
+        >
+        Atras
+    </button>
+    <button
+      class="comprobantes-prologue-cmds-toolbar-button-compare"
+      (click)="compararComprobantes()"
+      *ngIf="comprobantesAFIP.length && comprobantesPrologueFilter.length"
+      >
+      Comparar
+    </button>
+  </div>
+</div>
+
+<div
+  *ngIf="step === 3"
+  class="comprobantes-diferencias"
+  >
+  <h3
+    class="comprobantes-diferencias-title"
+    >
+    Diferencias Comprobantes
+  </h3>
+  <div
+    *ngIf="diferenciasComp.length"
+    class="comprobantes-diferencias-table-wrapper-toolbar"
+    >
+    <div
+      class="comprobantes-diferencias-table-wrapper-toolbar-total-tc-afip"
+      >
+      Total Comprobantes AFIP: {{comprobantesAFIP.length}}
+    </div>
+    <div
+      class="comprobantes-diferencias-table-wrapper-toolbar-total-tc-prologue"
+      >
+      Total Comprobantes Prologue: {{comprobantesPrologueFilter.length}}
+    </div>
+    <div
+      class="comprobantes-prologue-table-wrapper-toolbar-total-tc"
+      >
+      Total Comprobantes Diferencias: {{diferenciasComp.length}}
+    </div>
+  </div>
+  <div
+    *ngIf="diferenciasComp.length"
+    class="comprobantes-diferencias-table-wrapper"
+    >
+    <table
+      id="diferencias-comp"
+      >
+      <thead>
+        <th
+          *ngFor="let col of configDiferenciasComp.columns"
+          style="width: {{col.width}};"
+          >
+          {{col.caption}}
+        </th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let comp of diferenciasComp">
+          <td *ngFor="let col of configDiferenciasComp.columns">
+            {{comp[col.name]}}
+          </td>
+          <!--<td>
+            <ul>
+              <li *ngFor="let item of group.items">{{item}}</li>
+            </ul>
+          </td>-->
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div
+    class="comprobantes-diferencias-cmds-toolbar"
+    >
+    <button
+        class="comprobantes-diferencias-cmds-toolbar-button-back"
+        (click)="back()"
+        >
+        Atras
+    </button>
+    <button
+      class="comprobantes-diferencias-cmds-toolbar-button-export"
+      (click)="exportarComprobantes()"
+      *ngIf="diferenciasComp.length"
+      >
+      Exportar
+    </button>
+  </div>
+</div>
